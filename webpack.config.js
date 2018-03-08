@@ -1,22 +1,41 @@
 const path = require('path');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  devtool: 'source-map',
-  entry: [
-    './src/index.js',
-  ],
+  entry: path.resolve(__dirname, 'src', 'index.js'),
   output: {
-    path: path.join(__dirname, 'build'),
     filename: 'bundle.js',
-    publicPath: '/static/',
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.js/,
-        loaders: ['babel-loader'],
-        include: path.join(__dirname, 'src'),
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: 'html-loader',
+            options: { minimize: true },
+          },
+        ],
       },
     ],
+  },
+  plugins: [
+    new HtmlWebPackPlugin({
+      template: path.resolve(__dirname, 'src', 'index.html'),
+      filename: path.resolve(__dirname, 'dist', 'index.html'),
+    }),
+  ],
+  devServer: {
+    contentBase: path.resolve(__dirname, 'dist'),
+    compress: false,
+    port: 9000,
   },
 };
