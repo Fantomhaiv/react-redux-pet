@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { CSSTransitionGroup } from 'react-transition-group';
 import CommentList from './CommentList';
-import toggleOpen from '../decorators/toggleOpen';
+import './article.css';
 
 class Article extends Component {
   static propTypes = {
@@ -34,10 +35,16 @@ class Article extends Component {
         <button onClick={toggleOpen}>
           {isOpen ? 'close' : 'open'}
         </button>
-        {this.getBody()}
+        <CSSTransitionGroup
+          transitionName="article"
+          transitionEnterTimeout={300}
+          transitionLeaveTimeout={500}
+        >
+          {this.getBody()}
+        </CSSTransitionGroup>
       </div>
     );
   }
 }
 
-export default toggleOpen(Article);
+export default Article;

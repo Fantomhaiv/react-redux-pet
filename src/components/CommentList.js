@@ -9,7 +9,7 @@ function CommentList({ comments = [], isOpen, toggleOpen }) {
   return (
     <div>
       <button onClick={toggleOpen}>{text}</button>
-      {this.getBody({ comments, isOpen })}
+      {getBody({ comments, isOpen })}
     </div>
   );
 }

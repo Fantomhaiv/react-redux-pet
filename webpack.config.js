@@ -25,6 +25,10 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
   plugins: [
@@ -33,6 +37,7 @@ module.exports = {
       filename: path.resolve(__dirname, 'dist', 'index.html'),
     }),
   ],
+  devtool: 'inline-source-map',
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
     compress: false,
