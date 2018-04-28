@@ -1,1 +1,1 @@
-# js_ru_08_06_17
+# Just a pet project
