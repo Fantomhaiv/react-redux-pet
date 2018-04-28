@@ -1,11 +1,33 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Comment from './Comment';
+import CommentForm from './CommentForm';
 import toggleOpen from '../decorators/toggleOpen';
+
+function getBody({ comments, isOpen }) {
+  if (!isOpen) return null;
+
+  if (!comments.length) {
+    return (
+      <div>
+        <p>No comments yet</p>
+        <CommentForm />
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <ul>
+        {comments.map(comment => <li key={comment.id}><Comment comment={comment} /></li>)}
+      </ul>
+      <CommentForm />
+    </div>
+  );
+}
 
 function CommentList({ comments = [], isOpen, toggleOpen }) {
   const text = isOpen ? 'hide comments' : 'show comments';
-
   return (
     <div>
       <button onClick={toggleOpen}>{text}</button>
@@ -14,26 +36,11 @@ function CommentList({ comments = [], isOpen, toggleOpen }) {
   );
 }
 
-function getBody({ comments, isOpen }) {
-  if (!isOpen) return null;
-  if (!comments.length) return <p>No comments yet.</p>;
-
-  return (
-    <ul>
-      {comments.map(comment => <li key={comment.id}><Comment comment={comment} /></li>)}
-    </ul>
-  );
-}
-
 CommentList.propTypes = {
-  comments: PropTypes.arrayOf(PropTypes.object).isRequired,
-  isOpen: PropTypes.bool.isRequired,
-  toggleOpen: PropTypes.func.isRequired,
-};
-
-getBody.propTypes = {
-  comments: PropTypes.arrayOf(PropTypes.object).isRequired,
-  isOpen: PropTypes.bool.isRequired,
+  comments: PropTypes.array,
+  // from toggleOpen decorator
+  isOpen: PropTypes.bool,
+  toggleOpen: PropTypes.func,
 };
 
 export default toggleOpen(CommentList);

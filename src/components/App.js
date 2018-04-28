@@ -1,42 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Select from 'react-select';
 import ArticleList from './ArticleList';
+import ArticlesChart from './ArticlesChart';
 import UserForm from './UserForm';
-
-/* const options = [
-  { value: 'chocolate', label: 'Chocolate' },
-  { value: 'strawberry', label: 'Strawberry' },
-  { value: 'vanilla', label: 'Vanilla' },
-]; */
+import Filters from './Filters';
+import Counter from './Counter';
 
 export default class App extends Component {
   static propTypes = {
     articles: PropTypes.arrayOf(PropTypes.object).isRequired,
   };
 
-  state = {
-    selection: null,
-  };
-
-  changeSelection = selection => this.setState({ selection });
-
   render() {
-    const options = this.props.articles.map(article => ({
-      label: article.title,
-      value: article.id,
-    }));
+    const { articles } = this.props;
 
     return (
       <div>
+        <Counter />
         <UserForm />
-        <Select
-          options={options}
-          value={this.state.selection}
-          onChange={this.changeSelection}
-        />
-        <ArticleList articles={this.props.articles} />
+        <Filters articles={articles} />
+        <ArticleList articles={articles} defaultOpenId={articles[0].id} />
+        <ArticlesChart articles={articles} />
       </div>
     );
   }
 }
+

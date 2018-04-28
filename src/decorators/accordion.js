@@ -1,12 +1,16 @@
 import React from 'react';
 
 export default Component => class Accordion extends React.Component {
-  state = {
-    openItemId: null,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      openItemId: null,
+    };
+  }
 
   // Карирование [openItemId => event => {}]
-  toggleOpenItem = openItemId => (event) => {
+  toggleOpenItem = openItemId => event => {
     this.setState({
       openItemId: openItemId === this.state.openItemId ? null : openItemId,
     });
