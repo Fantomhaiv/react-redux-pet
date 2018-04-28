@@ -5,14 +5,14 @@ import { increment } from '../AC';
 
 class Counter extends Component {
   static propTypes = {
+    // from connect
     counter: PropTypes.number,
-    increment: PropTypes.func.isRequired,
+    incrementConnect: PropTypes.func.isRequired,
   };
 
   handleIncrement = () => {
-    console.log('---', 'incrementing');
-
-    this.props.increment();
+    const { incrementConnect } = this.props;
+    incrementConnect();
   };
 
   render() {
@@ -31,6 +31,6 @@ function mapStateToProps(state) {
   };
 }
 
-const mapToDispatch = { increment };
+const mapToDispatch = { incrementConnect: increment };
 
 export default connect(mapStateToProps, mapToDispatch)(Counter);

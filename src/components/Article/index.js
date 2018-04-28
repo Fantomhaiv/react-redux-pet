@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { CSSTransitionGroup } from 'react-transition-group';
 import CommentList from '../CommentList';
+import { deleteArticle } from '../../AC';
 import './style.css';
 
-export default class Article extends Component {
+class Article extends Component {
   static propTypes = {
     article: PropTypes.shape({
       id: PropTypes.string.isRequired,
@@ -13,6 +15,8 @@ export default class Article extends Component {
     }).isRequired,
     isOpen: PropTypes.bool.isRequired,
     toggleOpen: PropTypes.func.isRequired,
+    // from connect
+    deleteArticleConnect: PropTypes.func.isRequired,
   }
 
   getBody() {
@@ -26,6 +30,13 @@ export default class Article extends Component {
     );
   }
 
+  handleDelete = () => {
+    const { deleteArticleConnect, article } = this.props;
+    deleteArticleConnect(article.id);
+
+    console.log('---', 'deleting article');
+  };
+
   render() {
     const { article, isOpen, toggleOpen } = this.props;
 
@@ -34,6 +45,9 @@ export default class Article extends Component {
         <h3>{article.title}</h3>
         <button onClick={toggleOpen}>
           {isOpen ? 'close' : 'open'}
+        </button>
+        <button onClick={this.handleDelete}>
+          delete me
         </button>
         <CSSTransitionGroup
           transitionName="article"
@@ -46,3 +60,7 @@ export default class Article extends Component {
     );
   }
 }
+
+export default connect(null, {
+  deleteArticleConnect: deleteArticle,
+})(Article);

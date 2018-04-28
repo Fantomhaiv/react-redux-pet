@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Article from './Article';
 import accordion from '../decorators/accordion';
 
 class ArticleList extends Component {
   static propTypes = {
+    // from connect
     articles: PropTypes.arrayOf(PropTypes.object).isRequired,
     // from accordion
     openItemId: PropTypes.string,
@@ -30,4 +32,10 @@ class ArticleList extends Component {
   }
 }
 
-export default accordion(ArticleList);
+function mapStateToProps(state) {
+  return {
+    articles: state.articles,
+  };
+}
+
+export default connect(mapStateToProps)(accordion(ArticleList));
