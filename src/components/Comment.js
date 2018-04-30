@@ -26,5 +26,5 @@ const mapStateToProps = () => {
 
   return (state, ownProps) => ({ comment: commentSelector(state, ownProps) })
 };
-
+// TODO lesson 5 time 01:13:00
 export default connect(mapStateToProps)(Comment);

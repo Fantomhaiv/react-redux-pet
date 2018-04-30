@@ -6,10 +6,13 @@ import { changeSelection } from '../../AC';
 
 class SelectFilter extends Component {
   static propTypes = {
+    // from connect
     articles: PropTypes.array.isRequired,
+    selected: PropTypes.array.isRequired,
+    changeSelectionConnect: PropTypes.func.isRequired,
   };
 
-  handleChange = selected => this.props.changeSelection(selected);
+  handleChange = selected => this.props.changeSelectionConnect(selected);
 
   render() {
     const { articles, selected } = this.props;
@@ -28,7 +31,13 @@ class SelectFilter extends Component {
   }
 }
 
-export default connect(state => ({
+const mapStateToProps = state => ({
   selected: state.filters.selected,
   articles: state.articles,
-}), { changeSelection })(SelectFilter);
+});
+
+const mapDispatchToState = {
+  changeSelectionConnect: changeSelection,
+};
+
+export default connect(mapStateToProps, mapDispatchToState)(SelectFilter);
