@@ -1,1 +1,1 @@
-# Just a pet project
+# 🐱 Just a pet project
