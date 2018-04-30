@@ -2,6 +2,8 @@ import { createSelector } from 'reselect';
 
 const filtersGetter = state => state.filters;
 const articlesGetter = state => state.articles;
+const commentsGetter = state => state.comments;
+const idGetter = (state, props) => props.id;
 
 export const filteredArticlesSelector = createSelector(
   articlesGetter, filtersGetter,
@@ -16,4 +18,9 @@ export const filteredArticlesSelector = createSelector(
         (!from || !to || (published > from && published < to));
     });
   },
+);
+
+export const commentSelectorFactory = () => createSelector(
+  commentsGetter, idGetter,
+  (comments, id) => comments.find(comment => comment.id === id),
 );
