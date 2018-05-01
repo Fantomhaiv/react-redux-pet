@@ -24,7 +24,7 @@ Comment.propTypes = {
 const mapStateToProps = () => {
   const commentSelector = commentSelectorFactory();
 
-  return (state, ownProps) => ({ comment: commentSelector(state, ownProps) })
+  return (state, ownProps) => ({ comment: commentSelector(state, ownProps) });
 };
-// TODO lesson 5 time 01:13:00
+
 export default connect(mapStateToProps)(Comment);

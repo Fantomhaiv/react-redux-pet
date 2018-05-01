@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Comment from './Comment';
 import CommentForm from './CommentForm';
 import toggleOpen from '../decorators/toggleOpen';
 
-function getBody({ comments, isOpen }) {
+function getBody({ article: { comments = [], id }, isOpen }) {
   if (!isOpen) return null;
 
   if (!comments.length) {
     return (
       <div>
         <p>No comments yet</p>
-        <CommentForm />
+        <CommentForm articleId={id} />
       </div>
     );
   }
@@ -21,17 +21,17 @@ function getBody({ comments, isOpen }) {
       <ul>
         {comments.map(id => <li key={id}><Comment id={id} /></li>)}
       </ul>
-      <CommentForm />
+      <CommentForm articleId={id} />
     </div>
   );
 }
 
-function CommentList({ comments = [], isOpen, toggleOpen }) {
+function CommentList({ article, isOpen, toggleOpen }) {
   const text = isOpen ? 'hide comments' : 'show comments';
   return (
     <div>
       <button onClick={toggleOpen}>{text}</button>
-      {getBody({ comments, isOpen })}
+      {getBody({ article, isOpen })}
     </div>
   );
 }

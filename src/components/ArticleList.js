@@ -4,14 +4,20 @@ import { connect } from 'react-redux';
 import Article from './Article';
 import accordion from '../decorators/accordion';
 import { filteredArticlesSelector } from '../selectors';
+import {changeSelection, loadAllArticles} from "../AC"
 
 class ArticleList extends Component {
   static propTypes = {
     // from connect
     articles: PropTypes.arrayOf(PropTypes.object).isRequired,
+    loadAllArticlesConnect: PropTypes.func.isRequired,
     // from accordion
     openItemId: PropTypes.string,
     toggleOpenItem: PropTypes.func.isRequired,
+  }
+
+  componentDidMount() {
+    this.props.loadAllArticlesConnect();
   }
 
   render() {
@@ -39,4 +45,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(accordion(ArticleList));
+const mapDispatchToState = {
+  loadAllArticlesConnect: loadAllArticles,
+};
+
+export default connect(mapStateToProps, mapDispatchToState)(accordion(ArticleList));

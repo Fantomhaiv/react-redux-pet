@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addComment } from '../../AC';
 import './style.css';
 
 const limits = {
@@ -8,14 +10,15 @@ const limits = {
     max: 15,
   },
   text: {
-    min: 20,
-    max: 50,
+    min: 10,
+    max: 500,
   },
 };
 
-export default class CommentForm extends Component {
+class CommentForm extends Component {
   static propTypes = {
-
+    articleId: PropTypes.string.isRequired,
+    addComment: PropTypes.func.isRequired,
   };
 
   state = {
@@ -28,6 +31,8 @@ export default class CommentForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+
+    this.props.addComment(this.state, this.props.articleId);
 
     this.setState({
       user: '',
@@ -63,3 +68,15 @@ export default class CommentForm extends Component {
     );
   }
 }
+
+const mapStateToProps = null;
+
+// TODO коммент для напоминания что и так тоже можно диспатчить
+/*const mapDispatchToState = (dispatch, ownProps) => ({
+  addComment: comment => dispatch(addComment(comment, ownProps.articleId)),
+});*/
+const mapDispatchToState = {
+  addCommentConnect: addComment,
+};
+
+export default connect(mapStateToProps, mapDispatchToState)(CommentForm);

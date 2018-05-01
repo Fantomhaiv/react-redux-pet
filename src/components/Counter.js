@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { increment } from '../AC';
+import {changeSelection, increment} from '../AC'
 
 class Counter extends Component {
   static propTypes = {
@@ -31,6 +31,6 @@ function mapStateToProps(state) {
   };
 }
 
-const mapToDispatch = { incrementConnect: increment };
+const mapDispatchToState = { incrementConnect: increment };
 
-export default connect(mapStateToProps, mapToDispatch)(Counter);
+export default connect(mapStateToProps, mapDispatchToState)(Counter);

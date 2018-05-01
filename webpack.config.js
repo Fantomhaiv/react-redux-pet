@@ -42,5 +42,9 @@ module.exports = {
     contentBase: path.resolve(__dirname, 'dist'),
     compress: false,
     port: 9000,
+    proxy: [{
+      path: '/api/',
+      target: 'http://localhost:3001',
+    }],
   },
 };
