@@ -6,8 +6,8 @@
   "scripts": {
     "start": "concurrently \"npm run dev\" \"npm run api\"",
     "dev": "webpack-dev-server --mode development --open",
-    "build": "webpack --mode production --module-bind js=babel-loader",
-    "api": "node simple_api/server.js"
+    "api": "node simple_api/server.js",
+    "build": "webpack --mode production --module-bind js=babel-loader"
   },
   "repository": {
     "type": "git",
@@ -53,6 +53,7 @@
     "webpack-dev-server": "^3.1.0"
   },
   "dependencies": {
+    "immutable": "^3.8.2",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-day-picker": "^7.1.6",
