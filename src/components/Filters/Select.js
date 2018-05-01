@@ -34,7 +34,7 @@ class SelectFilter extends Component {
 
 const mapStateToProps = state => ({
   selected: state.filters.selected,
-  articles: mapToArr(state.articles),
+  articles: mapToArr(state.articles.entities),
 });
 
 const mapDispatchToState = {

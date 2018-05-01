@@ -1,27 +1,37 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Loader from './Loader';
 import Article from './Article';
 import accordion from '../decorators/accordion';
 import { filteredArticlesSelector } from '../selectors';
-import {changeSelection, loadAllArticles} from "../AC"
+import { loadAllArticles } from '../AC';
 
 class ArticleList extends Component {
   static propTypes = {
     // from connect
     articles: PropTypes.arrayOf(PropTypes.object).isRequired,
     loadAllArticlesConnect: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired,
+    loaded: PropTypes.bool.isRequired,
     // from accordion
     openItemId: PropTypes.string,
     toggleOpenItem: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
-    this.props.loadAllArticlesConnect();
+    const { loaded, loading, loadAllArticlesConnect } = this.props;
+
+    if (!loaded || !loading) loadAllArticlesConnect();
   }
 
   render() {
-    const { articles, openItemId, toggleOpenItem } = this.props;
+    const {
+      articles, openItemId, toggleOpenItem, loading,
+    } = this.props;
+
+    if (loading) return <Loader />;
+
     const articleElements = articles.map(article => (
       <li key={article.id}>
         <Article
@@ -42,6 +52,8 @@ class ArticleList extends Component {
 function mapStateToProps(state) {
   return {
     articles: filteredArticlesSelector(state),
+    loading: state.articles.loading,
+    loaded: state.articles.loaded,
   };
 }
 
