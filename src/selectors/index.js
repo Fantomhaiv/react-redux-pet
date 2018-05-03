@@ -1,13 +1,15 @@
+// TODO lesson 6 01.19.15
 import { createSelector } from 'reselect';
 import { mapToArr } from '../helpers';
 
-const filtersGetter = state => state.filters;
-const articlesGetter = state => state.articles.entities;
+/* const filtersGetter = state => state.filters;
+const articlesGetter = state => state.articles.entities; */
 const commentsGetter = state => state.comments;
 const idGetter = (state, props) => props.id;
 
 export const filteredArticlesSelector = createSelector(
-  articlesGetter, filtersGetter,
+  ({ articles: { entities } }) => entities, // state.articles.entities
+  ({ filters }) => filters, // state.filters
   (articles, filters) => {
     const { dateRange: { from, to } } = filters;
     const selected = filters.selected.map(item => item.value);

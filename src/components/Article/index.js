@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { CSSTransitionGroup } from 'react-transition-group';
 import CommentList from '../CommentList';
-import { deleteArticle } from '../../AC';
+import { deleteArticle, loadArticle } from '../../AC';
+import Loader from '../Loader';
 import './style.css';
 
 class Article extends Component {
@@ -17,11 +18,18 @@ class Article extends Component {
     toggleOpen: PropTypes.func.isRequired,
     // from connect
     deleteArticleConnect: PropTypes.func.isRequired,
+    loadArticleConnect: PropTypes.func.isRequired,
+  }
+
+  componentWillReceiveProps({ isOpen, loadArticleConnect, article }) {
+    if (isOpen && !article.text && !article.loading) loadArticleConnect(article.id);
   }
 
   getBody() {
     const { article, isOpen } = this.props;
     if (!isOpen) return null;
+    if (article.loading) return <Loader />;
+
     return (
       <section>
         <p>{article.text}</p>
@@ -63,4 +71,5 @@ class Article extends Component {
 
 export default connect(null, {
   deleteArticleConnect: deleteArticle,
+  loadArticleConnect: loadArticle,
 })(Article);

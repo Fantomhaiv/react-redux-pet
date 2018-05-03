@@ -1,12 +1,13 @@
 import { OrderedMap, Map, Record } from 'immutable';
 import { arrToMap } from '../helpers';
-import { DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES, START, SUCCESS } from '../constants';
+import { DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS } from '../constants';
 
 const ArticleRecord = Record({
   id: '',
   text: '',
   title: '',
   comments: [],
+  loading: false,
 });
 
 const ReducerState = new Record({
@@ -30,6 +31,10 @@ export default (articleState = defaultState, action) => {
         .set('entities', arrToMap(response, ArticleRecord))
         .set('loading', false)
         .set('loaded', true);
+    case LOAD_ARTICLE + START:
+      return articleState.setIn(['entities', payload.id, 'loading'], true);
+    case LOAD_ARTICLE + SUCCESS:
+      return articleState.setIn(['entities', payload.id], new ArticleRecord(payload.response));
     case DELETE_ARTICLE:
       return articleState.deleteIn(['entities', payload.id]);
       // return articleState.filter(article => article.id !== payload.id);
