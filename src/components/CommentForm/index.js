@@ -18,7 +18,7 @@ const limits = {
 class CommentForm extends Component {
   static propTypes = {
     articleId: PropTypes.string.isRequired,
-    addComment: PropTypes.func.isRequired,
+    addCommentConnect: PropTypes.func.isRequired,
   };
 
   state = {
@@ -32,7 +32,7 @@ class CommentForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    this.props.addComment(this.state, this.props.articleId);
+    this.props.addCommentConnect(this.state, this.props.articleId);
 
     this.setState({
       user: '',
