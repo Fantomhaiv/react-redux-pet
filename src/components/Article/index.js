@@ -9,20 +9,22 @@ import './style.css';
 
 class Article extends Component {
   static propTypes = {
+    id: PropTypes.string.isRequired,
+    isOpen: PropTypes.bool,
+    toggleOpen: PropTypes.func,
+    // from connect
     article: PropTypes.shape({
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       text: PropTypes.string,
-    }).isRequired,
-    isOpen: PropTypes.bool.isRequired,
-    toggleOpen: PropTypes.func.isRequired,
-    // from connect
+    }),
     deleteArticleConnect: PropTypes.func.isRequired,
     loadArticleConnect: PropTypes.func.isRequired,
   }
 
-  componentWillReceiveProps({ isOpen, loadArticleConnect, article }) {
-    if (isOpen && !article.text && !article.loading) loadArticleConnect(article.id);
+  componentDidMount() {
+    const { loadArticleConnect, article, id } = this.props;
+    if (!article || (!article.text && !article.loading)) loadArticleConnect(id);
   }
 
   getBody() {
@@ -48,6 +50,8 @@ class Article extends Component {
   render() {
     const { article, isOpen, toggleOpen } = this.props;
 
+    if (!article) return null;
+
     return (
       <div>
         <h3>{article.title}</h3>
@@ -69,7 +73,9 @@ class Article extends Component {
   }
 }
 
-export default connect(null, {
+export default connect((state, ownProps) => ({
+  article: state.articles.entities.get(ownProps.id),
+}), {
   deleteArticleConnect: deleteArticle,
   loadArticleConnect: loadArticle,
 })(Article);

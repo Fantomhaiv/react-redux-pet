@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"npm run dev\" \"npm run api\"",
-    "dev": "webpack-dev-server --mode development --open",
+    "dev": "webpack-dev-server --hot --mode development --open",
     "api": "node simple_api/server.js",
     "build": "webpack --mode production --module-bind js=babel-loader --progress"
   },
