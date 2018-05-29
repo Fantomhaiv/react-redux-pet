@@ -7,7 +7,7 @@
     "start": "concurrently \"npm run dev\" \"npm run api\"",
     "dev": "webpack-dev-server --mode development --open",
     "api": "node simple_api/server.js",
-    "build": "webpack --mode production --module-bind js=babel-loader"
+    "build": "webpack --mode production --module-bind js=babel-loader --progress"
   },
   "repository": {
     "type": "git",
@@ -50,6 +50,7 @@
     "style-loader": "^0.21.0",
     "webpack": "^4.1.1",
     "webpack-cli": "^2.0.10",
+    "webpack-dashboard": "^2.0.0",
     "webpack-dev-server": "^3.1.0"
   },
   "dependencies": {
@@ -59,6 +60,7 @@
     "react-day-picker": "^7.1.6",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
+    "react-router-dom": "^4.2.2",
     "react-select": "^2.0.0-beta.2",
     "react-transition-group": "^1.2.1",
     "redux": "^4.0.0",

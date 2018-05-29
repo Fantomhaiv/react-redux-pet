@@ -22,7 +22,7 @@ class ArticleList extends Component {
   componentDidMount() {
     const { loaded, loading, loadAllArticlesConnect } = this.props;
 
-    if (!loaded || !loading) loadAllArticlesConnect();
+    if (!loaded && !loading) loadAllArticlesConnect();
   }
 
   render() {
@@ -57,8 +57,8 @@ function mapStateToProps(state) {
   };
 }
 
-const mapDispatchToState = {
+const mapDispatchToProps = {
   loadAllArticlesConnect: loadAllArticles,
 };
 
-export default connect(mapStateToProps, mapDispatchToState)(accordion(ArticleList));
+export default connect(mapStateToProps, mapDispatchToProps)(accordion(ArticleList));

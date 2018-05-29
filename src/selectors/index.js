@@ -1,10 +1,5 @@
-// TODO lesson 6 01.19.15
 import { createSelector } from 'reselect';
 import { mapToArr } from '../helpers';
-
-/* const filtersGetter = state => state.filters;
-const articlesGetter = state => state.articles.entities; */
-const idGetter = (state, props) => props.id;
 
 export const filteredArticlesSelector = createSelector(
   ({ articles: { entities } }) => entities, // state.articles.entities

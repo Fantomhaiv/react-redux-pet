@@ -32,9 +32,19 @@ function getBody({ article: { comments = [], id, commentsLoaded, commentsLoading
 }
 
 class CommentList extends Component {
-  componentWillReceiveProps({ isOpen, article, loadArticleComments }) {
+  static propTypes = {
+    article: PropTypes.object,
+    comments: PropTypes.array,
+    // from connect
+    loadArticleCommentsConnect: PropTypes.func.isRequired,
+    // from toggleOpen decorator
+    isOpen: PropTypes.bool,
+    toggleOpen: PropTypes.func,
+  };
+
+  componentWillReceiveProps({ isOpen, article, loadArticleCommentsConnect }) {
     if (!this.props.isOpen && isOpen && !article.commentsLoading && !article.commentsLoaded) {
-      loadArticleComments(article.id);
+      loadArticleCommentsConnect(article.id);
     }
   }
 
@@ -50,13 +60,10 @@ class CommentList extends Component {
   }
 }
 
+const mapStateToProps = null;
 
-CommentList.propTypes = {
-  article: PropTypes.object,
-  comments: PropTypes.array,
-  // from toggleOpen decorator
-  isOpen: PropTypes.bool,
-  toggleOpen: PropTypes.func,
+const mapDispatchToProps = {
+  loadArticleCommentsConnect: loadArticleComments,
 };
 
-export default connect(null, { loadArticleComments })(toggleOpen(CommentList));
+export default connect(mapStateToProps, mapDispatchToProps)(toggleOpen(CommentList));

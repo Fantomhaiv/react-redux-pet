@@ -72,11 +72,11 @@ class CommentForm extends Component {
 const mapStateToProps = null;
 
 // TODO коммент для напоминания что и так тоже можно диспатчить
-/*const mapDispatchToState = (dispatch, ownProps) => ({
+/*const mapDispatchToProps = (dispatch, ownProps) => ({
   addComment: comment => dispatch(addComment(comment, ownProps.articleId)),
 });*/
-const mapDispatchToState = {
+const mapDispatchToProps = {
   addCommentConnect: addComment,
 };
 
-export default connect(mapStateToProps, mapDispatchToState)(CommentForm);
+export default connect(mapStateToProps, mapDispatchToProps)(CommentForm);
