@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-function Loader(props) {
+function Loader() {
   return (
     <h2>Loading...</h2>
   );

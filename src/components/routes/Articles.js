@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import ArticleList from '../ArticleList';
 import Article from '../Article';
@@ -8,9 +7,7 @@ class Articles extends Component {
   static propTypes = {
   };
 
-  getIndex = ({ isExact }) => {
-    return <h2>Please select article</h2>;
-  }
+  getIndex = () => <h2>Please select article</h2>
 
   getArticle = ({ match }) => {
     const { id } = match.params;

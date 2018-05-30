@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {changeSelection, increment} from '../AC'
+import { increment } from '../AC';
 
 class Counter extends Component {
   static propTypes = {
     // from connect
-    counter: PropTypes.number,
+    counter: PropTypes.number.isRequired,
     incrementConnect: PropTypes.func.isRequired,
   };
 

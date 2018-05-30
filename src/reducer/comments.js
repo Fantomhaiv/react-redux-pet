@@ -26,6 +26,8 @@ export default (commentsState = defaultState, action) => {
     case LOAD_ARTICLE_COMMENTS + SUCCESS:
       console.log('response', response);
       return commentsState.update('entities', entities => entities.merge(arrToMap(response, CommentRecord)));
+
+    default: // do nothing
   }
 
   return commentsState;

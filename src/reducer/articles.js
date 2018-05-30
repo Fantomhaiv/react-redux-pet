@@ -1,4 +1,4 @@
-import { OrderedMap, Map, Record } from 'immutable';
+import { OrderedMap, Record } from 'immutable';
 import { arrToMap } from '../helpers';
 import { DELETE_ARTICLE, ADD_COMMENT, LOAD_ALL_ARTICLES, LOAD_ARTICLE, LOAD_ARTICLE_COMMENTS, START, SUCCESS } from '../constants';
 
@@ -58,6 +58,8 @@ export default (articleState = defaultState, action) => {
         ['entities', payload.articleId, 'comments'],
         comments => comments.concat(randomId),
       );
+
+    default: // do nothing
   }
 
   return articleState;

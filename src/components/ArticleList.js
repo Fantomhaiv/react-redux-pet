@@ -22,15 +22,15 @@ class ArticleList extends Component {
   }
 
   render() {
-    const {
-      articles, loading,
-    } = this.props;
+    const { articles, loading } = this.props;
 
     if (loading) return <Loader />;
 
     const articleElements = articles.map(article => (
       <li key={article.id}>
-        <NavLink to={`/articles/${article.id}`} activeStyle={{ color: 'red' }} >{article.title}</NavLink>
+        <NavLink to={`/articles/${article.id}`} activeStyle={{ color: 'red' }}>
+          {article.title}
+        </NavLink>
       </li>));
 
     return (
