@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "react-scripts start",
+    "crastart": "react-scripts start",
     "start": "concurrently \"npm run dev\" \"npm run api\"",
     "dev": "webpack-dev-server --hot --mode development --open",
     "api": "node simple_api/server.js",
