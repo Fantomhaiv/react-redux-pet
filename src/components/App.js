@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect, NavLink } from 'react-router-dom';
+import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
 import NotFound from './routes/NotFound';
 import Articles from './routes/Articles';
 import NewArticle from './routes/NewArticle';
@@ -8,10 +9,12 @@ import UserForm from './UserForm';
 import Filters from './Filters';
 import Counter from './Counter';
 
+import history from '../history';
+
 export default class App extends Component {
   render() {
     return (
-      <Router>
+      <ConnectedRouter history={history}>
         <div>
           <h2>Menu</h2>
           <div><NavLink activeStyle={{ color: 'red' }} to="/counter">Counter</NavLink></div>
@@ -29,7 +32,7 @@ export default class App extends Component {
             <Route path="*" component={NotFound} />
           </Switch>
         </div>
-      </Router>
+      </ConnectedRouter>
     );
   }
 }
