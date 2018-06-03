@@ -3,6 +3,7 @@ import {
   LOAD_ALL_ARTICLES, LOAD_ARTICLE, LOAD_ARTICLE_COMMENTS, LOAD_COMMENTS_FOR_PAGE,
   START, SUCCESS, FAIL,
 } from '../constants';
+import { push, replace } from 'react-router-redux';
 
 export function increment() {
   return {
@@ -40,15 +41,23 @@ export function loadArticle(id) {
 
     setTimeout(() => {
       fetch(`/api/article/${id}`)
-        .then(res => res.json())
+        .then((response) => {
+          if (response.status >= 400) {
+            throw new Error(response.statusText);
+          }
+          return response.json();
+        })
         .then(response => dispatch({
           type: LOAD_ARTICLE + SUCCESS,
           payload: { id, response },
         }))
-        .catch(error => dispatch({
-          type: LOAD_ARTICLE + FAIL,
-          payload: { id, error },
-        }));
+        .catch((error) => {
+          dispatch({
+            type: LOAD_ARTICLE + FAIL,
+            payload: { id, error },
+          });
+          dispatch(replace('/error'));
+        });
     }, 1500);
   };
 }
