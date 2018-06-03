@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import Loader from './Loader';
 import { filteredArticlesSelector } from '../selectors';
 import { loadAllArticles } from '../AC';
@@ -28,7 +28,7 @@ class ArticleList extends Component {
 
     const articleElements = articles.map(article => (
       <li key={article.id}>
-        <NavLink to={`/articles/${article.id}`} activeStyle={{ color: 'red' }}>
+        <NavLink exact to={`/articles/${article.id}`} activeStyle={{ color: 'red' }} activeClassName="selected">
           {article.title}
         </NavLink>
       </li>));
@@ -53,4 +53,4 @@ const mapDispatchToProps = {
   loadAllArticlesConnect: loadAllArticles,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ArticleList);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ArticleList));

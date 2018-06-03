@@ -4,9 +4,9 @@ export default store => next => (action) => {
   const { callAPI, type, ...rest } = action;
   if (!callAPI) return next(action);
 
-  console.log('--- callAPI', callAPI);
+  /*console.log('--- callAPI', callAPI);
   console.log('--- type', type);
-  console.log('--- rest', { ...rest });
+  console.log('--- rest', { ...rest });*/
 
   next({
     ...rest,

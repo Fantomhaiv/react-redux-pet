@@ -7,7 +7,7 @@ import api from '../middlewares/api';
 import logger from '../middlewares/logger';
 import history from '../history';
 
-const enhancer = applyMiddleware(thunk, routerMiddleware(history), randomId, api, logger);
+const enhancer = applyMiddleware(thunk, routerMiddleware(history), randomId, api/*, logger*/);
 
 const store = createStore(reducer, {}, enhancer);
 

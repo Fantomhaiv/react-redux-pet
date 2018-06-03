@@ -32,6 +32,12 @@ function getBody({ article: { comments = [], id, commentsLoaded, commentsLoading
 }
 
 class CommentList extends Component {
+  static contextTypes = {
+    store: PropTypes.object,
+    router: PropTypes.object,
+    user: PropTypes.string,
+  }
+
   static propTypes = {
     article: PropTypes.object,
     comments: PropTypes.array,
@@ -50,9 +56,11 @@ class CommentList extends Component {
 
   render() {
     const { article, isOpen, toggleOpen } = this.props;
+    console.log('---', this.context);
     const text = isOpen ? 'hide comments' : 'show comments';
     return (
       <div>
+        <h3>User: {this.context.user}</h3>
         <button onClick={toggleOpen}>{text}</button>
         {getBody({ article, isOpen })}
       </div>
